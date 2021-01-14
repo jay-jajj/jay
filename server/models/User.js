@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema({
         type: String,
         minglength: 5
     },
-    nickname: {
+    lastName: {
         type:String,
         maxlength: 50,
         unique : true
