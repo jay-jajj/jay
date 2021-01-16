@@ -22,8 +22,19 @@ const connect = mongoose.connect(config.mongoURI,
     .then(() => console.log('MongoDB Connected Successfully!!!'))
     .catch(err => console.log(err));
 
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
 
+  // Set static folder   
+  // All the javascript and css files will be read and served from this folder
+  app.use(express.static("client/build"));
 
+  // index.html for all page routes    html or routing and naviagtion
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+  });
+}
+  
 
 //밑의 두개를 함으로써 request에 body 가 담겨 분석할수잇다.   
 // 'application/x-www-form-urlencoded' 방식의 Content-Type데이터를 받아준다.
