@@ -30,7 +30,11 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === "production") {
   // Set static folder   
   // All the javascript and css files will be read and served from this folder
-  app.use(express.static("client/build"));
+  // React 로 build된 폴더를 연결한다.
+const root = require('path').join(__dirname, '..', 'client', 'build');
+
+// 정적 페이지를 보낸다.
+app.use(express.static(root));
   
   // index.html for all page routes    html or routing and naviagtion
   app.get("*", (req, res) => {
