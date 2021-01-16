@@ -18,7 +18,7 @@ router.get('/auth', auth, function(req, res){
     });
 
 });
-
+ 
 
 router.post("/login", (req, res) => {
     //findOne은 mongoose에서 제공하는 질의함수 하나의 문서를 가져옴
