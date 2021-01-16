@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const path = require("path");
 const port = process.env.PORT || 4000
 
 //body부분을 분석해주는 미들웨어
@@ -34,6 +34,7 @@ if (process.env.NODE_ENV === "production") {
   
   // index.html for all page routes    html or routing and naviagtion
   app.get("*", (req, res) => {
+    const root = 
     res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
   });
 }
