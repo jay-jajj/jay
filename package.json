@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "\"boilerplate\"",
   "main": "server.js",
-  "engine": {
+  "engines": {
     "node": "14.15.4",
     "npm": "6.14.11"
   },
