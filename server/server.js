@@ -38,7 +38,7 @@ app.use(cookieParser());
 //라우터 폴더의 users라우터를 미들웨어로 등록
 //이렇게 하면 해당 경로로 요청시 등록한 미들웨어 실행
 app.use('/api/users', require('./routes/users'));
-
+app.use('/api/posts', require('./routes/posts'));
 
 
 app.listen(port, () => {

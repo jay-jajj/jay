@@ -43,7 +43,7 @@ const userSchema = mongoose.Schema({
     tokenExp :{
         type: Number
     }
-});
+},{ collection: 'users' });
 
 //pre프로퍼티는 지정한 메소드가 실행되기전에 실행해주는 메소드이다.
 //회원가입할때 비밀 번호를 암호화하기 위해서 필요한 작업이다.
