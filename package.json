@@ -4,6 +4,8 @@
   "description": "\"boilerplate\"",
   "main": "server.js",
   "scripts": {
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "start" : "node server/server.js",
     "frontend": "npm run start --prefix client",
     "backend": "nodemon server/server.js",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\" ",
