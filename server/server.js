@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 //쿠키를 분석가능하게 미들웨어 등록실행
 app.use(cookieParser());
-
+app.use(cors());
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
