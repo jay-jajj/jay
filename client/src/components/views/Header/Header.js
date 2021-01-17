@@ -14,6 +14,17 @@ export default function Header(props) {
   const classes = styleHeader();
   const { sections, title } = props;
 
+
+  function Sign(isLogin){
+    if(!isLogin){
+      return (<Link component={RouterLink} to='/login' style={{ textDecoration: 'none' }}>
+            <Button variant="outlined" size="small">Sign In</Button>
+           </Link>);
+    }else {
+      return (<Button variant="outlined" size="small">Sign In</Button>);
+    }
+  }
+
   return (
     <React.Fragment>
       <Toolbar className={classes.toolbar}>
@@ -35,11 +46,7 @@ export default function Header(props) {
         <IconButton>
           <SearchIcon />
         </IconButton>
-        <Link component={RouterLink} to='/login' style={{ textDecoration: 'none' }}>
-          <Button variant="outlined" size="small">
-            Sign In
-          </Button>
-        </Link>
+        {/*  */}
       </Toolbar>
       <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
         {sections.map((section) => (

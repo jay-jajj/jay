@@ -1,36 +1,69 @@
 import React, {useState} from 'react'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import { Link as RouterLink }  from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Previewer from './Previewer';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import {styleLoginPage} from '../../Style';
-
-function WritingPage() {
 
 
-    const [Title, setTitle] = useState('')
-    const [Description, setDescription] = useState('')
+import { useDispatch } from "react-redux";
+import { createPost } from "../../../_actions/post_action";
+
+function WritingPage(props) {
+
+    const post = props.location.state||{
+      title :'',
+      description : '',
+      tagList : []
+    };
+    const dispatch = useDispatch();
+
+    const [Title, setTitle] = useState(post.title);
+    const [Description, setDescription] = useState(post.description);
+    const [Tag, setTag] = useState('');
+    const TagList = post.tagList;
     const onTitleHandler =  function(event){
         setTitle(event.currentTarget.value);
       }
     const onDescriptionHandler = function(event){
         setDescription(event.currentTarget.value);
       }
-    const onPostingButtonHandler = function(event){
-        console.log(event)
+      
+    const onTagHandler =  function(event){
+      setTag(event.currentTarget.value);
     }
+    const onSubmitHandler = function(event){
+      event.preventDefault();
+
+      let body = {
+        title : Title,
+        description : Description,
+        tagList : TagList,
+        author : ""
+      }
+
+        dispatch(createPost(body))
+        .then(response => {
+          if (response.payload.createSuccess) {
+            props.history.push('/')
+        } else {
+            alert('Error˝')
+        }
+        });
+    }
+    const onTagButtonHandler = function(event){
+      TagList.push(Tag)
+      console.log(TagList);
+  }
+
 
     return (
       <Container  maxWidth="lg">
         <CssBaseline/>
         <Grid container spacing={4}>
           <Grid item xs={12} md={6}>
+          <form   noValidate onSubmit={onSubmitHandler}>
           <TextField
                   variant="outlined"
                   margin="normal"
@@ -43,6 +76,25 @@ function WritingPage() {
                   value={Title}
                   onChange={onTitleHandler}
                 />
+          <Grid container spacing={1}>
+            <Grid item xs={3}>
+              <TextField
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      required
+                      id="tags"
+                      label="태그를 붙여주세요"
+                      name="tag"
+                      autoFocus
+                      value={Tag}
+                      onChange={onTagHandler}
+                    />
+              </Grid>
+            <Grid item xs={3} md={3}>
+              <Button  variant="outlined" onClick={onTagButtonHandler}>붙이기</Button>
+            </Grid>
+          </Grid>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -57,7 +109,8 @@ function WritingPage() {
                   value={Description}
                   onChange={onDescriptionHandler}
                 />
-                <Button variant="outlined" onClick={onPostingButtonHandler}>등록하기</Button>
+                <Button variant="contained" color="primary" type='submit'>등록하기</Button>
+          </form>
           </Grid>
                 
           <Previewer title={Title} description={Description}/>

@@ -10,7 +10,6 @@ router.post("/read", (req, res) => {
     Post.find(condition, (err, docs) => {
         if(err) return res.json({success: false, err});
         res.send(docs)
-        console.log(condition)
     });
 });
 
@@ -20,14 +19,14 @@ router.post("/create", (req, res) => {
     //save()는 몽고db에서 지원하는 함수로 데이터를 저장해준다.
     post.save((err, doc) => {
         //에러 발생시 객체로 실패와 에러를 보내줌
-        if(err) return res.json({success : false, err});
-        return res.status(200).json({success : true});
+        if(err) return res.json({createSuccess : false, err});
+        return res.status(200).json({createSuccess : true});
     });
 });
 
-router.get("/delete",(req, res)=>{
+router.post("/delete", auth, (req, res) => {
 
-    Post.findOneAndDelete({_id:req.user._id}, (err, doc)=>{
+    Post.findOneAndRemove({_id:req.body._id}, (err, doc)=>{
         if(err) return res.json({success: false, err});
         return res.status(200).send({
             success:true
